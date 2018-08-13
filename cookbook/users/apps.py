@@ -3,7 +3,7 @@ from django.apps import AppConfig
 
 class UsersAppConfig(AppConfig):
 
-    name = "django_cookbook.users"
+    name = "cookbook.users"
     verbose_name = "Users"
 
     def ready(self):

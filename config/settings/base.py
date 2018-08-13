@@ -4,8 +4,8 @@ Base settings to build other settings files upon.
 
 import environ
 
-ROOT_DIR = environ.Path(__file__) - 3  # (django_cookbook/config/settings/base.py - 3 = django_cookbook/)
-APPS_DIR = ROOT_DIR.path('django_cookbook')
+ROOT_DIR = environ.Path(__file__) - 3  # (cookbook/config/settings/base.py - 3 = django_cookbook/)
+APPS_DIR = ROOT_DIR.path('cookbook')
 
 env = environ.Env()
 
@@ -69,7 +69,7 @@ THIRD_PARTY_APPS = [
     'rest_framework',
 ]
 LOCAL_APPS = [
-    'django_cookbook.users.apps.UsersAppConfig',
+    'cookbook.users.apps.UsersAppConfig',
     # Your stuff: custom apps go here
 ]
 # https://docs.djangoproject.com/en/dev/ref/settings/#installed-apps
@@ -79,7 +79,7 @@ INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
 # ------------------------------------------------------------------------------
 # https://docs.djangoproject.com/en/dev/ref/settings/#migration-modules
 MIGRATION_MODULES = {
-    'sites': 'django_cookbook.contrib.sites.migrations'
+    'sites': 'cookbook.contrib.sites.migrations'
 }
 
 # AUTHENTICATION
@@ -230,9 +230,9 @@ ACCOUNT_EMAIL_REQUIRED = True
 # https://django-allauth.readthedocs.io/en/latest/configuration.html
 ACCOUNT_EMAIL_VERIFICATION = 'mandatory'
 # https://django-allauth.readthedocs.io/en/latest/configuration.html
-ACCOUNT_ADAPTER = 'django_cookbook.users.adapters.AccountAdapter'
+ACCOUNT_ADAPTER = 'cookbook.users.adapters.AccountAdapter'
 # https://django-allauth.readthedocs.io/en/latest/configuration.html
-SOCIALACCOUNT_ADAPTER = 'django_cookbook.users.adapters.SocialAccountAdapter'
+SOCIALACCOUNT_ADAPTER = 'cookbook.users.adapters.SocialAccountAdapter'
 
 
 # Your stuff...

@@ -163,7 +163,7 @@ html_static_path = ["_static"]
 # html_file_suffix = None
 
 # Output file base name for HTML help builder.
-htmlhelp_basename = "django_cookbookdoc"
+htmlhelp_basename = "cookbookdoc"
 
 
 # -- Options for LaTeX output --------------------------------------------------
@@ -182,7 +182,7 @@ latex_elements = {
 latex_documents = [
     (
         "index",
-        "django_cookbook.tex",
+        "cookbook.tex",
         "django-cookbook Documentation",
         """Tony S. Yu""",
         "manual",
@@ -217,7 +217,7 @@ latex_documents = [
 man_pages = [
     (
         "index",
-        "django_cookbook",
+        "cookbook",
         "django-cookbook Documentation",
         ["""Tony S. Yu"""],
         1,
@@ -236,7 +236,7 @@ man_pages = [
 texinfo_documents = [
     (
         "index",
-        "django_cookbook",
+        "cookbook",
         "django-cookbook Documentation",
         """Tony S. Yu""",
         "django-cookbook",

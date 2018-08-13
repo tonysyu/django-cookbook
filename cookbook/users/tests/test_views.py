@@ -2,7 +2,7 @@ import pytest
 from django.conf import settings
 from django.test import RequestFactory
 
-from django_cookbook.users.views import UserRedirectView, UserUpdateView
+from cookbook.users.views import UserRedirectView, UserUpdateView
 
 pytestmark = pytest.mark.django_db
 

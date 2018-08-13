@@ -1,6 +1,6 @@
 from django.urls import path
 
-from django_cookbook.users.views import (
+from cookbook.users.views import (
     user_list_view,
     user_redirect_view,
     user_update_view,

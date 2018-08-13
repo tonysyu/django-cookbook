@@ -17,7 +17,7 @@ urlpatterns = [
     # User management
     path(
         "users/",
-        include("django_cookbook.users.urls", namespace="users"),
+        include("cookbook.users.urls", namespace="users"),
     ),
     path("accounts/", include("allauth.urls")),
     # Your stuff: custom urls includes go here

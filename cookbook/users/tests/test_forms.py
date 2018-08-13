@@ -1,7 +1,7 @@
 import pytest
 
-from django_cookbook.users.forms import UserCreationForm
-from django_cookbook.users.tests.factories import UserFactory
+from cookbook.users.forms import UserCreationForm
+from cookbook.users.tests.factories import UserFactory
 
 pytestmark = pytest.mark.django_db
 
