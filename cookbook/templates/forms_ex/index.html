@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <ul>
+        {% for view_name, view_title in view_names_and_titles.items %}
+            <li><a href="{% url view_name %}">{{ view_title }}</a></li>
+        {% endfor %}
+    </ul>
+{% endblock content %}

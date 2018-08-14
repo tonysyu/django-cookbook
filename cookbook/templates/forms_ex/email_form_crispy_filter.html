@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+    <h4>Enter your email</h4>
+
+    <form class="form-horizontal" method="post">
+        {% csrf_token %}
+        {{ form|crispy }}
+        {% include "forms_ex/snippets/bootstrap_save_button.html" %}
+    </form>
+{% endblock %}

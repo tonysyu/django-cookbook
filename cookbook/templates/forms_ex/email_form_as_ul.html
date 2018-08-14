@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h4>Enter your email</h4>
+
+    <form class="form-horizontal" method="post">
+        {% csrf_token %}
+        {{ form.as_ul }}
+        {% include "forms_ex/snippets/bootstrap_save_button.html" %}
+    </form>
+{% endblock %}
