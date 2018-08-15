@@ -1,8 +1,10 @@
 from collections import OrderedDict
 
+import mistune
 from django.contrib import messages
 from django.contrib.messages.views import SuccessMessageMixin
 from django.shortcuts import redirect, render
+from django.utils.html import mark_safe
 from django.views.generic import FormView, TemplateView
 
 from . import forms
@@ -25,13 +27,19 @@ class IndexView(TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['view_names_and_titles'] = OrderedDict([
-            ('forms_ex:email_form', 'Basic form'),
-            ('forms_ex:email_form_as_ul', 'Basic form using `as_ul`'),
-            ('forms_ex:email_form_as_table', 'Basic form using `as_table`'),
-            ('forms_ex:email_form_crispy_filter', 'Basic form using crispy filter'),
+
+        view_names_and_titles = OrderedDict([
+            ('forms_ex:email_form', 'Basic form (`{{ form.as_p }}`)'),
+            ('forms_ex:email_form_as_ul', 'Basic form (`{{ form.as_ul }}`)'),
+            ('forms_ex:email_form_as_table', 'Basic form (`{{ form.as_table }}`)'),
+            ('forms_ex:email_form_crispy_filter', 'Basic form (`{{ form|crispy }}`)'),
             ('forms_ex:email_modal', 'Modal form'),
         ])
+        # Update titles with markdown parser.
+        for view_name, title in view_names_and_titles.items():
+            view_names_and_titles[view_name] = mark_safe(mistune.markdown(title))
+        context['view_names_and_titles'] = view_names_and_titles
+
         return context
 
 
