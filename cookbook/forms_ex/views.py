@@ -33,6 +33,7 @@ class IndexView(TemplateView):
             ('forms_ex:email_form_as_ul', 'Basic form (`{{ form.as_ul }}`)'),
             ('forms_ex:email_form_as_table', 'Basic form (`{{ form.as_table }}`)'),
             ('forms_ex:email_form_crispy_filter', 'Basic form (`{{ form|crispy }}`)'),
+            ('forms_ex:email_form_crispy_tag', 'Basic form (`{% crispy form %}`)'),
             ('forms_ex:email_modal', 'Modal form'),
         ])
         # Update titles with markdown parser.
@@ -47,6 +48,16 @@ class EmailFormView(ConfirmAndRedirectToSelfMixin, FormView):
 
     template_name = 'forms_ex/email_form.html'
     form_class = forms.EmailForm
+
+
+class EmailFormCrispyTagView(ConfirmAndRedirectToSelfMixin, FormView):
+    """Form view using `{% crispy form %}` tag.
+
+    Using crispy tag allows the form layout (e.g. a Save button) to be delegated to the form.
+    """
+
+    template_name = 'forms_ex/email_form_crispy_tag.html'
+    form_class = forms.CrispyEmailForm
 
 
 class EmailModalView(ConfirmAndRedirectToSelfMixin, FormView):
