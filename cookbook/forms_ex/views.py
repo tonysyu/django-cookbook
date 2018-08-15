@@ -64,12 +64,6 @@ class EmailFormWithBooleanView(ConfirmAndRedirectToSelfMixin, FormView):
     form_class = forms.EmailFormWithBoolean
 
 
-class EmailModalView(ConfirmAndRedirectToSelfMixin, FormView):
-
-    template_name = 'forms_ex/email_modal.html'
-    form_class = forms.EmailForm
-
-
 class CrispyFormWithOnClickView(FormView):
 
     template_name = 'forms_ex/email_form_crispy_tag.html'

@@ -37,7 +37,7 @@ urlpatterns = [
     ),
     path(
         'email_modal',
-        views.EmailModalView.as_view(),
+        views.EmailFormView.as_view(template_name='forms_ex/email_modal.html'),
         name='email_modal',
     ),
     path(
