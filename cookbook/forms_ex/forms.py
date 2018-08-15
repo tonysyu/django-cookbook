@@ -30,3 +30,19 @@ class EmailFormWithBoolean(forms.Form):
 
     email = forms.EmailField()
     spam_me = forms.BooleanField(required=False)
+
+
+class CrispyFormWithOnClick(forms.Form):
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.helper = FormHelper()
+        # Rather than adding a submit button, add a 
+        self.helper.add_input(
+            layout.Button(
+                name='fire',
+                value='Fire',
+                onclick="alert('Fired!')",
+                css_class='btn btn-primary',
+            ),
+        )

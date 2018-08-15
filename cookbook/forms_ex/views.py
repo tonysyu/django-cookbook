@@ -36,6 +36,7 @@ class IndexView(TemplateView):
             ('forms_ex:email_form_crispy_tag', 'Basic form (`{% crispy form %}`)'),
             ('forms_ex:email_modal', 'Modal form'),
             ('forms_ex:email_form_with_boolean', 'Basic form with boolean'),
+            ('forms_ex:crispy_form_with_onclick', 'Crispy form with onclick handler'),
         ])
         # Update titles with markdown parser.
         for view_name, title in view_names_and_titles.items():
@@ -67,3 +68,9 @@ class EmailModalView(ConfirmAndRedirectToSelfMixin, FormView):
 
     template_name = 'forms_ex/email_modal.html'
     form_class = forms.EmailForm
+
+
+class CrispyFormWithOnClickView(FormView):
+
+    template_name = 'forms_ex/email_form_crispy_tag.html'
+    form_class = forms.CrispyFormWithOnClick

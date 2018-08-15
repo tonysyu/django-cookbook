@@ -45,4 +45,9 @@ urlpatterns = [
         views.EmailFormWithBooleanView.as_view(),
         name='email_form_with_boolean',
     ),
+    path(
+        'crispy_form_with_onclick',
+        views.CrispyFormWithOnClickView.as_view(),
+        name='crispy_form_with_onclick',
+    ),
 ]
