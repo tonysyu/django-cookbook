@@ -32,12 +32,17 @@ urlpatterns = [
     ),
     path(
         'email_form_crispy_tag',
-        views.EmailFormCrispyTagView.as_view(template_name='forms_ex/email_form_crispy_tag.html'),
+        views.EmailFormCrispyTagView.as_view(),
         name='email_form_crispy_tag',
     ),
     path(
         'email_modal',
         views.EmailModalView.as_view(),
         name='email_modal',
+    ),
+    path(
+        'email_form_with_boolean',
+        views.EmailFormWithBooleanView.as_view(),
+        name='email_form_with_boolean',
     ),
 ]
