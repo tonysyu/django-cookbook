@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+
+    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
+        Open modal
+    </button>
+
+    <p>Current time: {% now "f.s" %}</p>
+
+    <div class="modal fade" id="myModal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+
+                <div class="modal-header">
+                    <h4 class="modal-title">Enter your email</h4>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+
+                <div class="modal-body">
+                    <form class="form-horizontal" method="post">
+                        {% csrf_token %}
+                        {{ form|crispy }}
+                        {% include "forms_ex/snippets/bootstrap_save_button.html" %}
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block javascript %}
+    {{ block.super }}
+
+    <script charset="utf-8">
+        var formAjaxSubmit = function() {
+            $('form').submit(function (e) {
+                var $form = $(this);
+                var $modal = $form.closest('.modal');
+                e.preventDefault();
+                $.ajax({
+                    type: $form.attr('method'),
+                    url: '{% url "forms_ex:ajax_submit" %}',
+                    data: $form.serialize(),
+                    success: function (xhr, ajaxOptions, thrownError) {
+                        if ( $(xhr).find('.has-error').length > 0 ) {
+                            $modal.find('.modal-body').html(xhr);
+                        } else {
+                            $modal.modal('toggle');
+                            alert(`Successfully submitted email ${xhr.data}`)
+                        }
+                    },
+                    error: function (xhr, ajaxOptions, thrownError) {
+                        // handle response errors here
+                    }
+                });
+            });
+        }
+        formAjaxSubmit()
+    </script>
+{% endblock javascript %}

@@ -1,11 +1,11 @@
 from collections import OrderedDict
 
 import mistune
-from django.contrib import messages
 from django.contrib.messages.views import SuccessMessageMixin
-from django.shortcuts import redirect, render
+from django.http import JsonResponse
+from django.shortcuts import redirect
 from django.utils.html import mark_safe
-from django.views.generic import FormView, TemplateView
+from django.views.generic import FormView, TemplateView, View
 
 from . import forms
 
@@ -35,6 +35,7 @@ class IndexView(TemplateView):
             ('forms_ex:email_form_crispy_filter', 'Basic form (`{{ form|crispy }}`)'),
             ('forms_ex:email_form_crispy_tag', 'Basic form (`{% crispy form %}`)'),
             ('forms_ex:email_modal', 'Modal form'),
+            ('forms_ex:email_modal_with_ajax_submit', 'Modal form with ajax submission'),
             ('forms_ex:email_form_with_boolean', 'Basic form with boolean'),
             ('forms_ex:crispy_form_with_onclick', 'Crispy form with onclick handler'),
         ])
@@ -68,3 +69,10 @@ class CrispyFormWithOnClickView(FormView):
 
     template_name = 'forms_ex/email_form_crispy_tag.html'
     form_class = forms.CrispyFormWithOnClick
+
+
+class AjaxSubmitView(View):
+
+    def post(self, request, *args, **kwargs):
+        print(request.POST)
+        return JsonResponse(request.POST)

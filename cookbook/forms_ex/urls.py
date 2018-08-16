@@ -41,6 +41,11 @@ urlpatterns = [
         name='email_modal',
     ),
     path(
+        'email_modal_with_ajax_submit',
+        views.EmailFormView.as_view(template_name='forms_ex/email_modal_with_ajax_submit.html'),
+        name='email_modal_with_ajax_submit',
+    ),
+    path(
         'email_form_with_boolean',
         views.EmailFormWithBooleanView.as_view(),
         name='email_form_with_boolean',
@@ -49,5 +54,11 @@ urlpatterns = [
         'crispy_form_with_onclick',
         views.CrispyFormWithOnClickView.as_view(),
         name='crispy_form_with_onclick',
+    ),
+
+    path(
+        'ajax_submit',
+        views.AjaxSubmitView.as_view(),
+        name='ajax_submit',
     ),
 ]
