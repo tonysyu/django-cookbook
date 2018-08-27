@@ -109,10 +109,10 @@ class EmailModalWithAjaxSubmitView(ConfirmAndRedirectToSelfMixin, FormView):
     form_class = forms.EmailForm
 
 
-@url('email_modal_with_ajax_helper', title='Modal form with ajax crispy helper')
-class EmailFormAjaxHelperView(ConfirmAndRedirectToSelfMixin, FormView):
+@url('email_modal_with_ajax_media', title='Modal form with ajax media')
+class EmailFormAjaxMediaView(ConfirmAndRedirectToSelfMixin, FormView):
 
-    template_name = 'forms_ex/email_modal_with_ajax_helper.html'
+    template_name = 'forms_ex/email_modal_with_ajax_media.html'
     form_class = forms.CrispyAjaxEmailForm
 
 

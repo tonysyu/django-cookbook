@@ -7,25 +7,6 @@ from django.template.loader import render_to_string
 from django.utils.html import mark_safe
 
 
-JAVASCRIPT_TEMPLATE_WRAPPER = """
-    <script src="https://code.jquery.com/jquery-3.3.1.min.js"
-            integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
-            crossorigin="anonymous">
-    </script>
-    <script charset="utf-8">
-        {}
-    </script>
-"""
-
-class AjaxFormHelper(FormHelper):
-
-    def render_layout(self, form, context, template_pack=TEMPLATE_PACK):
-        html = super().render_layout(form, context, template_pack=template_pack)
-        js = render_to_string('forms_ex/snippets/modal_ajax_submission.js', {'helper': self})
-        js = JAVASCRIPT_TEMPLATE_WRAPPER.format(js)
-        return mark_safe(html + js)
-
-
 class EmailForm(forms.Form):
 
     email = forms.EmailField()
@@ -46,15 +27,25 @@ class CrispyEmailForm(forms.Form):
 
 
 class CrispyAjaxEmailForm(forms.Form):
-    """Form rendered using `{% crispy form %}` tag and `AjaxFormHelper`."""
+    """Form rendered using `{% crispy form %}` tag and embedded javascript."""
 
     email = forms.EmailField()
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.helper = AjaxFormHelper(self)
+        self.helper = FormHelper(self)
         self.helper.form_action = reverse('forms_ex:ajax_submit')
+        # Suppress media inclusion with crispy tag because we will manually include
+        # {{ form.media }} after jQuery and bootstrap have been loaded in template.
+        self.helper.include_media = False
         self.helper.add_input(layout.Submit('submit', 'Save'))
+
+    @property
+    def media(self):
+        return mark_safe(render_to_string(
+            'forms_ex/snippets/modal_ajax_submission.html',
+            {'helper': self.helper},
+        ))
 
 
 class EmailFormWithBoolean(forms.Form):
