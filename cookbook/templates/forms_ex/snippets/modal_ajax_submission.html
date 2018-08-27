@@ -9,11 +9,11 @@
             data: $form.serialize(),
             success: function (data, statusText, thrownError) {
                 $modal.modal('toggle');
-                alert(`Successfully submitted: ${data.email}`);
+                notify.success("Successfully submitted form");
             },
             error: function (data, statusText, thrownError) {
                 $modal.modal('toggle');
-                alert(`Email submission failed ${thrownError}`);
+                notify.success("Failed to submit form");
             }
         });
     });
