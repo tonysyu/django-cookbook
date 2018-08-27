@@ -46,6 +46,11 @@ urlpatterns = [
         name='email_modal_with_ajax_submit',
     ),
     path(
+        'email_modal_with_ajax_helper',
+        views.EmailFormAjaxHelperView.as_view(),
+        name='email_modal_with_ajax_helper',
+    ),
+    path(
         'email_form_with_boolean',
         views.EmailFormWithBooleanView.as_view(),
         name='email_form_with_boolean',

@@ -36,6 +36,7 @@ class IndexView(TemplateView):
             ('forms_ex:email_form_crispy_tag', 'Basic form (`{% crispy form %}`)'),
             ('forms_ex:email_modal', 'Modal form'),
             ('forms_ex:email_modal_with_ajax_submit', 'Modal form with ajax submission'),
+            ('forms_ex:email_modal_with_ajax_helper', 'Modal form with ajax crispy helper'),
             ('forms_ex:email_form_with_boolean', 'Basic form with boolean'),
             ('forms_ex:crispy_form_with_onclick', 'Crispy form with onclick handler'),
         ])
@@ -59,6 +60,12 @@ class EmailFormCrispyTagView(ConfirmAndRedirectToSelfMixin, FormView):
     form_class = forms.CrispyEmailForm
 
 
+class EmailFormAjaxHelperView(ConfirmAndRedirectToSelfMixin, FormView):
+
+    template_name = 'forms_ex/email_modal_with_ajax_helper.html'
+    form_class = forms.CrispyAjaxEmailForm
+
+
 class EmailFormWithBooleanView(ConfirmAndRedirectToSelfMixin, FormView):
 
     template_name = 'forms_ex/email_form_crispy_filter.html'
@@ -74,5 +81,4 @@ class CrispyFormWithOnClickView(FormView):
 class AjaxSubmitView(View):
 
     def post(self, request, *args, **kwargs):
-        print(request.POST)
         return JsonResponse(request.POST)
