@@ -3,7 +3,7 @@
 {% block content %}
     <ul>
         {% for view_name, view_title in view_names_and_titles %}
-            <li><a href="{% url view_name %}">{{ view_title }}</a></li>
+            <li><a href="{% url view_name %}">{{ view_title|safe }}</a></li>
         {% endfor %}
     </ul>
 {% endblock content %}

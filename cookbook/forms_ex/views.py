@@ -1,13 +1,13 @@
 from collections import OrderedDict
+from textwrap import dedent
 
-import mistune
 from django.contrib.messages.views import SuccessMessageMixin
 from django.http import JsonResponse
 from django.shortcuts import redirect
 from django.urls import path
 from django.utils import timezone
-from django.utils.html import mark_safe
 from django.views.generic import FormView, TemplateView, View
+from mistune import markdown
 
 from . import forms
 
@@ -16,6 +16,10 @@ app_name = 'forms_ex'
 urlpatterns = []
 
 _INDEXED_VIEWS = []
+
+
+def format_desc(desc):
+    return markdown(dedent(desc))
 
 
 def url(url_path, name=None, title=None):
@@ -54,7 +58,7 @@ class IndexView(TemplateView):
 
         view_names_and_titles = _INDEXED_VIEWS
         # Update titles with markdown parser.
-        view_names_and_titles = [(view_name, mark_safe(mistune.markdown(title)))
+        view_names_and_titles = [(view_name, markdown(title))
                                  for view_name, title in view_names_and_titles]
         context['view_names_and_titles'] = view_names_and_titles
 
@@ -64,12 +68,20 @@ class IndexView(TemplateView):
 @url('email_form', title='Basic form (`{{ form.as_p }}`)')
 class EmailFormView(ConfirmAndRedirectToSelfMixin, FormView):
 
+    description = format_desc("""
+        Basic email form formatted using `{{ form.as_p }}`
+    """)
+
     template_name = 'forms_ex/email_form.html'
     form_class = forms.EmailForm
 
 
 @url('email_form_as_ul', title='Basic form (`{{ form.as_ul }}`)')
 class EmailFormAsULView(ConfirmAndRedirectToSelfMixin, FormView):
+
+    description = format_desc("""
+        Basic email form formatted using `{{ form.as_ul }}`
+    """)
 
     template_name = 'forms_ex/email_form_as_ul.html'
     form_class = forms.EmailForm
@@ -78,6 +90,9 @@ class EmailFormAsULView(ConfirmAndRedirectToSelfMixin, FormView):
 @url('email_form_as_table', title='Basic form (`{{ form.as_table }}`)')
 class EmailFormAsTableView(ConfirmAndRedirectToSelfMixin, FormView):
 
+    description = format_desc("""
+        Basic email form formatted using `{{ form.as_table }}`
+    """)
     template_name = 'forms_ex/email_form_as_table.html'
     form_class = forms.EmailForm
 
@@ -85,12 +100,23 @@ class EmailFormAsTableView(ConfirmAndRedirectToSelfMixin, FormView):
 @url('email_form_crispy_filter', title='Basic form (`{{ form|crispy }}`)')
 class EmailFormCrispyFilterView(ConfirmAndRedirectToSelfMixin, FormView):
 
+    description = format_desc("""
+        Basic email form formatted using `{{ form|crispy }}`. With the `crispy` filter, the layout
+        is similar to `form.as_*`, except that the layout is done using bootstrap.
+    """)
+
     template_name = 'forms_ex/email_form_crispy_filter.html'
     form_class = forms.EmailForm
 
 
 @url('email_form_crispy_tag', title='Basic form (`{% crispy form %}`)')
 class EmailFormCrispyTagView(ConfirmAndRedirectToSelfMixin, FormView):
+
+    description = format_desc("""
+        Basic email form formatted using `{% crispy form %}`. In addition to the styling provided
+        by the `crispy` filter, the `crispy` tag also adds the `csrf_token` and allows additional
+        layout using code added to the `Form` model.
+    """)
 
     template_name = 'forms_ex/email_form_crispy_tag.html'
     form_class = forms.CrispyEmailForm
