@@ -7,6 +7,8 @@
         Open modal
     </button>
 
+    {% include "forms_ex/snippets/page_load_timestamp.html" %}
+
     <div class="modal fade" id="myModal">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -17,11 +19,7 @@
                 </div>
 
                 <div class="modal-body">
-                    <form class="form-horizontal" method="post">
-                        {% csrf_token %}
-                        {{ form|crispy }}
-                        {% include "forms_ex/snippets/bootstrap_save_button.html" %}
-                    </form>
+                    {% crispy form %}
                 </div>
 
             </div>

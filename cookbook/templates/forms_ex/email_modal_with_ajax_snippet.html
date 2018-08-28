@@ -7,7 +7,7 @@
         Open modal
     </button>
 
-    <p>Current time: {% now "f.s" %}</p>
+    {% include "forms_ex/snippets/page_load_timestamp.html" %}
 
     <div class="modal fade" id="myModal">
         <div class="modal-dialog">
@@ -19,11 +19,7 @@
                 </div>
 
                 <div class="modal-body">
-                    <form class="form-horizontal" method="post">
-                        {% csrf_token %}
-                        {{ form|crispy }}
-                        {% include "forms_ex/snippets/bootstrap_save_button.html" %}
-                    </form>
+                    {% crispy form %}
                 </div>
 
             </div>
@@ -45,16 +41,9 @@
                     url: '{% url "forms_ex:ajax_submit" %}',
                     data: $form.serialize(),
                     success: function (xhr, ajaxOptions, thrownError) {
-                        if ( $(xhr).find('.has-error').length > 0 ) {
-                            $modal.find('.modal-body').html(xhr);
-                        } else {
-                            $modal.modal('toggle');
-                            alert(`Successfully submitted email ${xhr.data}`)
-                        }
+                        $modal.modal('toggle');
+                        notify.success(data.success_msg || "Successfully submitted form");
                     },
-                    error: function (xhr, ajaxOptions, thrownError) {
-                        // handle response errors here
-                    }
                 });
             });
         }

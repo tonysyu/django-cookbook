@@ -3,14 +3,12 @@
     document.addEventListener("DOMContentLoaded", function(event) {
         $('form').submit(function (e) {
             var $form = $(this);
-            var $modal = $form.closest('.modal');
             e.preventDefault();
             $.ajax({
                 type: '{{ helper.form_method }}',
                 url: '{{ helper.form_action }}',
                 data: $form.serialize(),
                 success: function (data, statusText, thrownError) {
-                    $modal.modal('toggle');
                     notify.success(data.success_msg || "Successfully submitted form");
                 },
             });

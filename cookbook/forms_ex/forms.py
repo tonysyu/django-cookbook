@@ -30,22 +30,23 @@ class CrispyAjaxEmailForm(forms.Form):
     """Form rendered using `{% crispy form %}` tag and embedded javascript."""
 
     email = forms.EmailField()
+    media_template = 'forms_ex/snippets/ajax_submission.html'
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.helper = FormHelper(self)
         self.helper.form_action = reverse('forms_ex:ajax_submit')
-        # Suppress media inclusion with crispy tag because we will manually include
-        # {{ form.media }} after jQuery and bootstrap have been loaded in template.
-        self.helper.include_media = False
         self.helper.add_input(layout.Submit('submit', 'Save'))
 
     @property
     def media(self):
-        return mark_safe(render_to_string(
-            'forms_ex/snippets/modal_ajax_submission.html',
-            {'helper': self.helper},
-        ))
+        return mark_safe(render_to_string(self.media_template, {'helper': self.helper}))
+
+
+class CrispyAjaxModalEmailForm(CrispyAjaxEmailForm):
+    """Modal form rendered using `{% crispy form %}` tag and embedded javascript for modal."""
+
+    media_template = 'forms_ex/snippets/modal_ajax_submission.html'
 
 
 class EmailFormWithBoolean(forms.Form):

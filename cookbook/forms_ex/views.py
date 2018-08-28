@@ -5,6 +5,7 @@ from django.contrib.messages.views import SuccessMessageMixin
 from django.http import JsonResponse
 from django.shortcuts import redirect
 from django.urls import path
+from django.utils import timezone
 from django.utils.html import mark_safe
 from django.views.generic import FormView, TemplateView, View
 
@@ -95,25 +96,32 @@ class EmailFormCrispyTagView(ConfirmAndRedirectToSelfMixin, FormView):
     form_class = forms.CrispyEmailForm
 
 
+@url('email_form_with_ajax_media', title='Email form with ajax media')
+class EmailFormWithAjaxMediaView(FormView):
+
+    template_name = 'forms_ex/email_form_crispy_tag.html'
+    form_class = forms.CrispyAjaxEmailForm
+
+
 @url('email_modal', title='Modal form')
 class EmailModalView(ConfirmAndRedirectToSelfMixin, FormView):
 
     template_name = 'forms_ex/email_modal.html'
-    form_class = forms.EmailForm
+    form_class = forms.CrispyEmailForm
 
 
-@url('email_modal_with_ajax_submit', title='Modal form with ajax submission')
-class EmailModalWithAjaxSubmitView(ConfirmAndRedirectToSelfMixin, FormView):
+@url('email_modal_with_ajax_snippet', title='Modal form with ajax snippet')
+class EmailModalWithAjaxSnippetView(FormView):
 
-    template_name = 'forms_ex/email_modal_with_ajax_submit.html'
-    form_class = forms.EmailForm
+    template_name = 'forms_ex/email_modal_with_ajax_snippet.html'
+    form_class = forms.CrispyEmailForm
 
 
 @url('email_modal_with_ajax_media', title='Modal form with ajax media')
-class EmailFormAjaxMediaView(ConfirmAndRedirectToSelfMixin, FormView):
+class EmailModalWithAjaxMediaView(FormView):
 
-    template_name = 'forms_ex/email_modal_with_ajax_media.html'
-    form_class = forms.CrispyAjaxEmailForm
+    template_name = 'forms_ex/email_modal.html'
+    form_class = forms.CrispyAjaxModalEmailForm
 
 
 @url('email_form_with_boolean', title='Basic form with boolean')
@@ -134,4 +142,5 @@ class CrispyFormWithOnClickView(FormView):
 class AjaxSubmitView(View):
 
     def post(self, request, *args, **kwargs):
-        return JsonResponse(request.POST)
+        msg = "Successfully submitted at {:%X}".format(timezone.now())
+        return JsonResponse({'success_msg': msg})
